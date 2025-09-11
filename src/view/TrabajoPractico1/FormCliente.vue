@@ -1,26 +1,44 @@
 <template>
-  <div class="registro">
-    <h2>Registro rápido de clientes</h2>
+  <Card class="registro">
+    <template #title>
+      Registro rápido de clientes
+    </template>
 
-    <label for="nombre">Nombre del cliente</label>
-    <input
-      id="nombre"
-      type="text"
-      v-model="nombre"
-      @keyup.enter="registrar"
-      placeholder="Ej: Ana Pérez"
-    />
+    <template #content>
+      <div class="p-fluid">
+        <div class="field">
+          <label for="nombre">Nombre del cliente</label>
+          <InputText
+            id="nombre"
+            v-model="nombre"
+            @keyup.enter="registrar"
+            placeholder="Ej: Ana Pérez"
+          />
+        </div>
 
-    <button :disabled="!nombre.trim()" @click="registrar">
-      Registrar
-    </button>
+        <Button
+          label="Registrar"
+          icon="pi pi-check"
+          :disabled="!nombre.trim()"
+          @click="registrar"
+          class="btn-espaciado"
+        />
 
-    <p v-if="mensaje" class="ok">{{ mensaje }}</p>
-  </div>
+        <Message v-if="mensaje" severity="success" :closable="false" class="mt-3">
+          {{ mensaje }}
+        </Message>
+      </div>
+    </template>
+  </Card>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import InputText from 'primevue/inputtext'
+import Button from 'primevue/button'
+import Card from 'primevue/card'
+import Message from 'primevue/message'
+
 const emit = defineEmits(['registrado'])
 
 const nombre = ref('')
@@ -38,6 +56,7 @@ function capitalizar(cadena) {
 function registrar() {
   const limpio = capitalizar(nombre.value)
   if (!limpio) return
+
   console.log('[DB] Guardado cliente:', limpio)
   mensaje.value = `¡Bienvenido/a, ${limpio}! Tu registro fue exitoso.`
   emit('registrado', limpio)
@@ -46,21 +65,12 @@ function registrar() {
 </script>
 
 <style scoped>
-/* estilos del formulario */
 .registro {
   max-width: 420px;
-  margin: 1rem auto;
-  padding: 1rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.05);
-  background: #fff;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
 }
-.ok {
-  margin-top: .75rem;
-  background: #ecfdf5;
-  color: #065f46;
-  padding: .5rem .75rem;
-  border-radius: 8px;
+.btn-espaciado {
+  margin-top: 18px;
 }
 </style>
