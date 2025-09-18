@@ -1,13 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Importamos las vistas de cada TP
+
 import Registro from './view/TrabajoPractico1/Registro.vue'
-//import TP2 from './view/TrabajoPractico2/TP2.vue' // Ejemplo
+import Inicio from './view/Inicio.vue'
+import Productos from './view/TrabajoPractico2/Productos.vue'
+import Carrito from './view/TrabajoPractico2/Carrito.vue'
+import RegistroValidado from './view/TrabajoPractico2/RegistroValidado.vue'
+
+// Vista de detalle de producto (se creará luego)
+const DetalleProducto = () => import('./view/TrabajoPractico2/DetalleProducto.vue')
+
 
 const routes = [
-  { path: '/', redirect: '/tp1' },   // Redirige a TP1 por defecto
-  { path: '/tp1', component: Registro },
-  //{ path: '/tp2', component: TP2 }
+  { path: '/', component: Inicio },
+  { path: '/tp1', redirect: '/clientes' },
+  { path: '/productos', component: Productos },
+  { path: '/productos/:id', component: DetalleProducto, props: true },
+  { path: '/carrito', component: Carrito },
+  { path: '/clientes', component: RegistroValidado },
 ]
 
 const router = createRouter({

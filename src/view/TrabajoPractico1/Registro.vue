@@ -1,10 +1,8 @@
 <template>
   <div class="registro">
 
-  <h2>Registro Rápido de Clientes</h2>
-  <p class="texto-ayuda">Por favor, ingresa el nombre del cliente que deseas registrar.</p>
+  <h2>Clientes</h2>
 
-  <InputText v-model="nombre" placeholder="Ej: Ana Pérez" class="input-full" />
 
   <div class="espacio-boton"></div>
   <Button label="Registrar" icon="pi pi-check" class="p-button-success btn-espaciado" @click="registrarCliente" />
